@@ -1,0 +1,31 @@
+product-pricing/
+├── css/
+│   ├── editor.css
+│   └── style.css
+├── js/
+│   ├── blocks.js
+│   ├── editor.js
+│   └── frontend.js
+├── src/
+│   ├── blocks/
+│   │   ├── pricing-table/
+│   │   │   ├── index.php
+│   │   │   ├── index.js
+│   │   │   ├── edit.js
+│   │   │   ├── save.js
+│   │   │   └── style.scss
+│   │   └── single-product/
+│   │       ├── index.php
+│   │       ├── index.js
+│   │       ├── edit.js
+│   │       ├── save.js
+│   │       └── style.scss
+├── templates/
+│   ├── pricing-table-template.php
+│   └── single-product-template.php
+├── vendor/
+│   └── autoload.php
+├── .gitignore
+├── package.json
+├── product-pricing.php
+├── README.md

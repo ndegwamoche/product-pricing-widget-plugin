@@ -1,0 +1,39 @@
+/*!*************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/blocks/pricing-table/editor.scss ***!
+  \*************************************************************************************************************************************************************************************************************************************************************/
+.pricing .card-body {
+  padding: 0rem !important;
+}
+
+.pricing ul li {
+  font-size: 0.96rem !important;
+  margin-bottom: 0 !important;
+}
+
+.card {
+  padding: 0.7rem 0.7rem 0.7rem !important;
+}
+
+.card-price {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+.currency-symbol {
+  font-size: 3rem;
+  align-self: center;
+}
+
+.period {
+  font-size: 1rem;
+}
+
+.period {
+  align-self: flex-end !important;
+  margin-bottom: 0.7rem;
+  align-self: center;
+}
+
+/*# sourceMappingURL=index.css.map*/
