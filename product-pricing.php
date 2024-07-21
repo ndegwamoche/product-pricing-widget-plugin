@@ -35,7 +35,8 @@ if ( ! class_exists( 'ProductPricing' ) ) {
                 'product-pricing-blocks',
                 $this->plugin_url . 'build/index.js',
                 array( 'wp-blocks', 'wp-element', 'wp-editor', 'wp-components' ),
-                filemtime( $this->plugin_dir . '/build/index.js' )
+                filemtime( $this->plugin_dir . '/build/index.js' ),
+                true
             );
 
             wp_enqueue_style(
@@ -94,7 +95,7 @@ if ( ! class_exists( 'ProductPricing' ) ) {
                 $this->plugin_url . 'assets/js/bootstrap.bundle.min.js',
                 array( 'jquery' ),
                 filemtime( $this->plugin_dir . 'assets/js/bootstrap.bundle.min.js' ),
-                true // Load script in footer
+                true
             );
         }
 

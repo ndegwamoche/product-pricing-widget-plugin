@@ -13,7 +13,23 @@ wp.blocks.registerBlockType("product-pricing/pricing-table", {
     plan3: { type: "string", default: "Pro" },
     price1: { type: "string", default: "0" },
     price2: { type: "string", default: "0" },
-    price3: { type: "string", default: "0" }
+    price3: { type: "string", default: "0" },
+    properties: {
+      type: "object",
+      default: {
+        plan1: ["Feature 1"],
+        plan2: ["Feature 1"],
+        plan3: ["Feature 1"]
+      }
+    },
+    propertyStates: {
+      type: "object",
+      default: {
+        plan1: [false],
+        plan2: [false],
+        plan3: [false]
+      }
+    }
   },
   edit,
   save

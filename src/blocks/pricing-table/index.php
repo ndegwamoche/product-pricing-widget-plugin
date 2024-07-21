@@ -17,7 +17,7 @@ function register_pricing_table_block() {
             'product-pricing-blocks-all-min',
             'product-pricing-blocks-bootstrap-min',
         ),
-        'script' => 'bootstrap-bundle', // Add the script to be loaded on the frontend
+        'script' => 'bootstrap-bundle'
     ) );
 }
 

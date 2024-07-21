@@ -1,7 +1,9 @@
 import {
   Flex,
   FlexItem,
-  TextControl
+  TextControl,
+  Button,
+  Icon
 } from "@wordpress/components";
 import { useRef, useEffect, useState } from "react";
 
@@ -25,17 +27,37 @@ const Edit = (props) => {
     });
   }, [attributes]);
 
-  useEffect(() => {
-    plans.forEach((plan, index) => {
-      const price = prices[index];
-      if (spanRefs.current[price]) {
-        setInputWidths((prevWidths) => ({
-          ...prevWidths,
-          [price]: spanRefs.current[price].offsetWidth + 10
-        }));
-      }
-    });
-  }, []);
+  const addProperty = (plan) => {
+    const newProperties = {
+      ...attributes.properties,
+      [plan]: [...attributes.properties[plan], "Feature"]
+    };
+    const newPropertyStates = {
+      ...attributes.propertyStates,
+      [plan]: [...attributes.propertyStates[plan], false]
+    };
+    setAttributes({ properties: newProperties, propertyStates: newPropertyStates });
+  };
+
+  const removeProperty = (plan, index) => {
+    const newProperties = { ...attributes.properties };
+    newProperties[plan].splice(index, 1);
+    const newPropertyStates = { ...attributes.propertyStates };
+    newPropertyStates[plan].splice(index, 1);
+    setAttributes({ properties: newProperties, propertyStates: newPropertyStates });
+  };
+
+  const updateProperty = (plan, index, value) => {
+    const newProperties = { ...attributes.properties };
+    newProperties[plan][index] = value;
+    setAttributes({ properties: newProperties });
+  };
+
+  const togglePropertyState = (plan, index) => {
+    const newPropertyStates = { ...attributes.propertyStates };
+    newPropertyStates[plan][index] = !newPropertyStates[plan][index];
+    setAttributes({ propertyStates: newPropertyStates });
+  };
 
   return (
     <section className="pricing">
@@ -100,55 +122,42 @@ const Edit = (props) => {
                   </h6>
                   <hr />
                   <ul className="fa-ul">
+                    {attributes.properties[plan].map((property, propIndex) => (
+                      <li key={propIndex} className={attributes.propertyStates[plan][propIndex] ? "text-muted" : ""}>
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <span className="fa-li">
+                            <i className={attributes.propertyStates[plan][propIndex] ? "fas fa-times" : "fas fa-check"}></i>
+                          </span>
+                          <TextControl
+                            value={property}
+                            onChange={(value) => updateProperty(plan, propIndex, value)}
+                            style={{ fontSize: "0.90rem", border: "0", paddingLeft: "0" }}
+                          />
+                          <Button
+                            isSmall
+                            onClick={() => togglePropertyState(plan, propIndex)}
+                            style={{ marginLeft: "0", width: "1rem" }}
+                          >
+                            <Icon icon={attributes.propertyStates[plan][propIndex] ? "star-filled" : "star-empty"} />
+                          </Button>
+                          <Button
+                            isSmall
+                            isDestructive
+                            onClick={() => removeProperty(plan, propIndex)}
+                            style={{ marginLeft: "0" }}
+                          >
+                            <Icon icon="trash" />
+                          </Button>
+                        </div>
+                      </li>
+                    ))}
                     <li>
-                      <span className="fa-li">
-                        <i className="fas fa-check"></i>
-                      </span>
-                     <TextControl value="Single User" style={{fontSize: "0.96rem", border: "0", paddingLeft: "0"}}/>
-                    </li>
-                    <li>
-                      <span className="fa-li">
-                        <i className="fas fa-check"></i>
-                      </span>
-                      <TextControl value="5GB Storage" style={{fontSize: "0.96rem", border: "0", paddingLeft: "0"}}/>
-                      
-                    </li>
-                    <li>
-                      <span className="fa-li">
-                        <i className="fas fa-check"></i>
-                      </span>
-                      <TextControl value="Unlimited Public Projects" style={{fontSize: "0.96rem", border: "0", paddingLeft: "0"}}/>
-                      
-                    </li>
-                    <li>
-                      <span className="fa-li">
-                        <i className="fas fa-check"></i>
-                      </span>
-                      Community Access
-                    </li>
-                    <li className="text-muted">
-                      <span className="fa-li">
-                        <i className="fas fa-times"></i>
-                      </span>
-                      Unlimited Private Projects
-                    </li>
-                    <li className="text-muted">
-                      <span className="fa-li">
-                        <i className="fas fa-times"></i>
-                      </span>
-                      Dedicated Phone Support
-                    </li>
-                    <li className="text-muted">
-                      <span className="fa-li">
-                        <i className="fas fa-times"></i>
-                      </span>
-                      Free Subdomain
-                    </li>
-                    <li className="text-muted">
-                      <span className="fa-li">
-                        <i className="fas fa-times"></i>
-                      </span>
-                      Monthly Status Reports
+                      <Button
+                        isSecondary
+                        onClick={() => addProperty(plan)}
+                      >
+                        Add Property
+                      </Button>
                     </li>
                   </ul>
                   <div className="d-grid">
