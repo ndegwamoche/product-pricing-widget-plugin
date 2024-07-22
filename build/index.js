@@ -220,10 +220,47 @@ const Edit = props => {
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
                 className: "d-grid",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
-                  href: "#",
-                  className: "btn btn-primary text-uppercase",
-                  children: "Button"
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Button, {
+                  className: "btn-primary-custom",
+                  style: {
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "1rem",
+                    borderRadius: "5rem",
+                    letterSpacing: "0.1rem",
+                    backgroundColor: "#0d6efd",
+                    borderColor: "#0d6efd",
+                    color: "#ffffff",
+                    textDecoration: "none",
+                    fontSize: "80%",
+                    fontWeight: "bold",
+                    opacity: "0.7",
+                    transition: "all 0.2s",
+                    position: "relative",
+                    height: "3rem"
+                  },
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.TextControl, {
+                    value: attributes[`buttonLabel${index + 1}`],
+                    onChange: value => setAttributes({
+                      [`buttonLabel${index + 1}`]: value
+                    }),
+                    style: {
+                      color: "#ffffff",
+                      backgroundColor: "transparent",
+                      border: "none",
+                      fontSize: "inherit",
+                      fontWeight: "inherit",
+                      textTransform: "uppercase",
+                      padding: "0",
+                      paddingTop: "0.5rem",
+                      margin: "0",
+                      textAlign: "center",
+                      width: "auto",
+                      height: "auto",
+                      verticalAlign: "middle"
+                    }
+                  })
                 })
               })]
             })
@@ -245,10 +282,8 @@ const Edit = props => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./edit */ "./src/blocks/pricing-table/edit.js");
-/* harmony import */ var _save__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./save */ "./src/blocks/pricing-table/save.js");
-/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./style.scss */ "./src/blocks/pricing-table/style.scss");
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./editor.scss */ "./src/blocks/pricing-table/editor.scss");
-
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.scss */ "./src/blocks/pricing-table/style.scss");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./editor.scss */ "./src/blocks/pricing-table/editor.scss");
 
 
 
@@ -259,15 +294,15 @@ wp.blocks.registerBlockType("product-pricing/pricing-table", {
   attributes: {
     plan1: {
       type: "string",
-      default: "Free"
+      default: "DEFAULT PLAN 1"
     },
     plan2: {
       type: "string",
-      default: "Plus"
+      default: "DEFAULT PLAN 2"
     },
     plan3: {
       type: "string",
-      default: "Pro"
+      default: "DEFAULT PLAN 3"
     },
     price1: {
       type: "string",
@@ -296,99 +331,25 @@ wp.blocks.registerBlockType("product-pricing/pricing-table", {
         plan2: [false],
         plan3: [false]
       }
+    },
+    buttonLabel1: {
+      type: "string",
+      default: "Button 1"
+    },
+    buttonLabel2: {
+      type: "string",
+      default: "Button 2"
+    },
+    buttonLabel3: {
+      type: "string",
+      default: "Button 3"
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_0__["default"],
-  save: _save__WEBPACK_IMPORTED_MODULE_1__["default"]
+  save: function (props) {
+    return null;
+  }
 });
-
-/***/ }),
-
-/***/ "./src/blocks/pricing-table/save.js":
-/*!******************************************!*\
-  !*** ./src/blocks/pricing-table/save.js ***!
-  \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
-
-const Save = props => {
-  const {
-    attributes
-  } = props;
-
-  // Destructure attributes
-  const plans = ["plan1", "plan2", "plan3"];
-  const prices = ["price1", "price2", "price3"];
-
-  // Extract properties and property states from attributes
-  const properties = attributes.properties || {
-    plan1: ["Feature 1"],
-    plan2: ["Feature 1"],
-    plan3: ["Feature 1"]
-  };
-  const propertyStates = attributes.propertyStates || {
-    plan1: [false],
-    plan2: [false],
-    plan3: [false]
-  };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("section", {
-    className: "pricing",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-      className: "container",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-        className: "row",
-        children: plans.map((plan, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-          className: "col-lg-4",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-            className: "card mb-5 mb-lg-0",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-              className: "card-body",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h5", {
-                className: "card-title text-muted text-uppercase text-center",
-                children: attributes[plan] || `Default ${plan}`
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h6", {
-                className: "card-price text-center",
-                children: ["$", attributes[prices[index]] || "0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-                  className: "period",
-                  children: "/month"
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("ul", {
-                className: "fa-ul",
-                children: properties[plan].map((property, propIndex) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("li", {
-                  className: propertyStates[plan][propIndex] ? "text-muted" : "",
-                  style: {
-                    display: "flex",
-                    alignItems: "center"
-                  },
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-                    className: "fa-li",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
-                      className: propertyStates[plan][propIndex] ? "fas fa-times" : "fas fa-check"
-                    })
-                  }), property]
-                }, propIndex))
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                className: "d-grid",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
-                  href: "#",
-                  className: "btn btn-primary text-uppercase",
-                  children: "Button"
-                })
-              })]
-            })
-          })
-        }, plan))
-      })
-    })
-  });
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Save);
 
 /***/ }),
 

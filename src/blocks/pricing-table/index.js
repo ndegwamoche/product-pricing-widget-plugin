@@ -1,5 +1,4 @@
 import edit from "./edit";
-import save from "./save";
 import "./style.scss";
 import "./editor.scss";
 
@@ -8,9 +7,9 @@ wp.blocks.registerBlockType("product-pricing/pricing-table", {
   icon: "table-col-after",
   category: "widgets",
   attributes: {
-    plan1: { type: "string", default: "Free" },
-    plan2: { type: "string", default: "Plus" },
-    plan3: { type: "string", default: "Pro" },
+    plan1: { type: "string", default: "DEFAULT PLAN 1" },
+    plan2: { type: "string", default: "DEFAULT PLAN 2" },
+    plan3: { type: "string", default: "DEFAULT PLAN 3" },
     price1: { type: "string", default: "0" },
     price2: { type: "string", default: "0" },
     price3: { type: "string", default: "0" },
@@ -29,9 +28,13 @@ wp.blocks.registerBlockType("product-pricing/pricing-table", {
         plan2: [false],
         plan3: [false]
       }
-    }
+    },
+    buttonLabel1: { type: "string", default: "Button 1" },
+    buttonLabel2: { type: "string", default: "Button 2" },
+    buttonLabel3: { type: "string", default: "Button 3" }
   },
   edit,
-  save
+  save: function (props) {
+    return null;
+  }
 });
- 

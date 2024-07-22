@@ -161,9 +161,47 @@ const Edit = (props) => {
                     </li>
                   </ul>
                   <div className="d-grid">
-                    <a href="#" className="btn btn-primary text-uppercase">
-                      Button
-                    </a>
+                    <Button
+                      className="btn-primary-custom"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        padding: "1rem",
+                        borderRadius: "5rem",
+                        letterSpacing: "0.1rem",
+                        backgroundColor: "#0d6efd",
+                        borderColor: "#0d6efd",
+                        color: "#ffffff",
+                        textDecoration: "none",
+                        fontSize: "80%",
+                        fontWeight: "bold",
+                        opacity: "0.7",
+                        transition: "all 0.2s",
+                        position: "relative",
+                        height: "3rem"
+                      }}
+                    >
+                      <TextControl
+                        value={attributes[`buttonLabel${index + 1}`]}
+                        onChange={(value) => setAttributes({ [`buttonLabel${index + 1}`]: value })}
+                        style={{
+                          color: "#ffffff",
+                          backgroundColor: "transparent",
+                          border: "none",
+                          fontSize: "inherit",
+                          fontWeight: "inherit",
+                          textTransform: "uppercase",
+                          padding: "0",
+                          paddingTop: "0.5rem",
+                          margin: "0",
+                          textAlign: "center",
+                          width: "auto",
+                          height: "auto",
+                          verticalAlign: "middle"
+                        }}
+                      />
+                    </Button>
                   </div>
                 </div>
               </div>
