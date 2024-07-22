@@ -34,3 +34,4 @@ wp.blocks.registerBlockType("product-pricing/pricing-table", {
   edit,
   save
 });
+ 
