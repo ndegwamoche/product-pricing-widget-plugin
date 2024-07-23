@@ -2,6 +2,36 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./node_modules/@wordpress/icons/build-module/library/keyboard-return.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/@wordpress/icons/build-module/library/keyboard-return.js ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "@wordpress/primitives");
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
+/**
+ * WordPress dependencies
+ */
+
+
+const keyboardReturn = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__.Path, {
+    d: "m6.734 16.106 2.176-2.38-1.093-1.028-3.846 4.158 3.846 4.158 1.093-1.028-2.176-2.38h2.811c1.125 0 2.25.03 3.374 0 1.428-.001 3.362-.25 4.963-1.277 1.66-1.065 2.868-2.906 2.868-5.859 0-2.479-1.327-4.896-3.65-5.93-1.82-.813-3.044-.8-4.806-.788l-.567.002v1.5c.184 0 .368 0 .553-.002 1.82-.007 2.704-.014 4.21.657 1.854.827 2.76 2.657 2.76 4.561 0 2.472-.973 3.824-2.178 4.596-1.258.807-2.864 1.04-4.163 1.04h-.02c-1.115.03-2.229 0-3.344 0H6.734Z"
+  })
+});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (keyboardReturn);
+//# sourceMappingURL=keyboard-return.js.map
+
+/***/ }),
+
 /***/ "./src/blocks/pricing-table/edit.js":
 /*!******************************************!*\
   !*** ./src/blocks/pricing-table/edit.js ***!
@@ -16,8 +46,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/keyboard-return.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
+
 
 
 
@@ -35,6 +70,31 @@ const Edit = props => {
   });
   const inputRefs = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)({});
   const spanRefs = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)({});
+  const popoverRefs = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)({});
+  const buttonRefs = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)({});
+  const [isPopoverVisible, setPopoverVisible] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({});
+  const [buttonURLs, setButtonURLs] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({});
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+    // Initialize button URLs from attributes
+    const initialButtonURLs = {};
+    plans.forEach((_, index) => {
+      initialButtonURLs[index] = attributes[`buttonURL${index + 1}`] || "";
+    });
+    setButtonURLs(initialButtonURLs);
+  }, [attributes]);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+    const handleClickOutside = event => {
+      const isClickInsidePopover = Object.values(popoverRefs.current).some(ref => ref && ref.contains(event.target));
+      const isClickInsideButton = Object.values(buttonRefs.current).some(ref => ref && ref.contains(event.target));
+      if (!isClickInsidePopover && !isClickInsideButton) {
+        setPopoverVisible({});
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
     plans.forEach((plan, index) => {
       const price = prices[index];
@@ -92,21 +152,42 @@ const Edit = props => {
       propertyStates: newPropertyStates
     });
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("section", {
+  const handleButtonMouseOver = index => {
+    setPopoverVisible(prev => ({
+      ...prev,
+      [index]: true
+    }));
+  };
+  const handleURLChange = (index, value) => {
+    setButtonURLs(prev => ({
+      ...prev,
+      [index]: value
+    }));
+  };
+  const handleURLSubmit = index => {
+    setAttributes({
+      [`buttonURL${index + 1}`]: buttonURLs[index]
+    });
+    setPopoverVisible(prev => ({
+      ...prev,
+      [index]: false
+    }));
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("section", {
     className: "pricing",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "container",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Flex, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Flex, {
         className: "row",
-        children: plans.map((plan, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.FlexItem, {
+        children: plans.map((plan, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.FlexItem, {
           className: "col-lg-4",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "card mb-5 mb-lg-0",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
               className: "card-body",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h5", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h5", {
                 className: "card-title text-muted text-uppercase text-center",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.TextControl, {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.TextControl, {
                   value: attributes[plan],
                   onChange: value => setAttributes({
                     [plan]: value
@@ -116,21 +197,21 @@ const Edit = props => {
                     textAlign: "center"
                   }
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("h6", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h6", {
                 className: "card-price text-center",
                 style: {
                   display: "flex",
                   alignItems: "center",
                   flexWrap: "nowrap"
                 },
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                   className: "currency-symbol",
                   children: "$"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                   style: {
                     position: "relative"
                   },
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.TextControl, {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.TextControl, {
                     value: attributes[prices[index]],
                     onChange: value => setAttributes({
                       [prices[index]]: value
@@ -149,7 +230,7 @@ const Edit = props => {
                       alignSelf: "center"
                     },
                     ref: el => inputRefs.current[prices[index]] = el
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                     ref: el => spanRefs.current[prices[index]] = el,
                     style: {
                       position: "absolute",
@@ -163,25 +244,25 @@ const Edit = props => {
                     },
                     children: attributes[prices[index]] || "0"
                   })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                   className: "period",
                   children: "/month"
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("ul", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("ul", {
                 className: "fa-ul",
-                children: [attributes.properties[plan].map((property, propIndex) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
+                children: [attributes.properties[plan].map((property, propIndex) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
                   className: attributes.propertyStates[plan][propIndex] ? "text-muted" : "",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                     style: {
                       display: "flex",
                       alignItems: "center"
                     },
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                       className: "fa-li",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
                         className: attributes.propertyStates[plan][propIndex] ? "fas fa-times" : "fas fa-check"
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.TextControl, {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.TextControl, {
                       value: property,
                       onChange: value => updateProperty(plan, propIndex, value),
                       style: {
@@ -189,39 +270,40 @@ const Edit = props => {
                         border: "0",
                         paddingLeft: "0"
                       }
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Button, {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Button, {
                       isSmall: true,
                       onClick: () => togglePropertyState(plan, propIndex),
                       style: {
                         marginLeft: "0",
                         width: "1rem"
                       },
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Icon, {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Icon, {
                         icon: attributes.propertyStates[plan][propIndex] ? "star-filled" : "star-empty"
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Button, {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Button, {
                       isSmall: true,
                       isDestructive: true,
                       onClick: () => removeProperty(plan, propIndex),
                       style: {
                         marginLeft: "0"
                       },
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Icon, {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Icon, {
                         icon: "trash"
                       })
                     })]
                   })
-                }, propIndex)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Button, {
+                }, propIndex)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Button, {
                     isSecondary: true,
                     onClick: () => addProperty(plan),
                     children: "Add Property"
                   })
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                 className: "d-grid",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Button, {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Button, {
                   className: "btn-primary-custom",
+                  "data-index": index,
                   style: {
                     display: "flex",
                     alignItems: "center",
@@ -240,7 +322,9 @@ const Edit = props => {
                     position: "relative",
                     height: "3rem"
                   },
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.TextControl, {
+                  onMouseOver: () => handleButtonMouseOver(index),
+                  ref: el => buttonRefs.current[index] = el,
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.TextControl, {
                     value: attributes[`buttonLabel${index + 1}`],
                     onChange: value => setAttributes({
                       [`buttonLabel${index + 1}`]: value
@@ -260,7 +344,46 @@ const Edit = props => {
                       height: "auto",
                       verticalAlign: "middle"
                     }
-                  })
+                  }), isPopoverVisible[index] && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.URLPopover, {
+                    ref: el => popoverRefs.current[index] = el,
+                    onClose: () => setPopoverVisible(prev => ({
+                      ...prev,
+                      [index]: false
+                    })),
+                    renderSettings: () => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.ToggleControl, {
+                        label: "Open in new tab",
+                        checked: attributes[`buttonOpenInNewTab${index + 1}`] || false,
+                        onChange: value => setAttributes({
+                          [`buttonOpenInNewTab${index + 1}`]: value
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.ToggleControl, {
+                        label: "Add rel='nofollow'",
+                        checked: attributes[`buttonNoFollow${index + 1}`] || false,
+                        onChange: value => setAttributes({
+                          [`buttonNoFollow${index + 1}`]: value
+                        })
+                      })]
+                    }),
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.TextControl, {
+                      label: "URL",
+                      placeholder: "link inside",
+                      style: {
+                        width: '100%',
+                        minWidth: '200px'
+                      },
+                      value: buttonURLs[index] || "",
+                      onChange: value => handleURLChange(index, value)
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Button, {
+                      icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"],
+                      label: "Save URL",
+                      isPrimary: true,
+                      onClick: () => handleURLSubmit(index),
+                      style: {
+                        marginTop: '20px'
+                      }
+                    })]
+                  })]
                 })
               })]
             })
@@ -343,6 +466,42 @@ wp.blocks.registerBlockType("product-pricing/pricing-table", {
     buttonLabel3: {
       type: "string",
       default: "Button 3"
+    },
+    buttonURL1: {
+      type: "string",
+      default: ""
+    },
+    buttonURL2: {
+      type: "string",
+      default: ""
+    },
+    buttonURL3: {
+      type: "string",
+      default: ""
+    },
+    buttonOpenInNewTab1: {
+      type: "boolean",
+      default: false
+    },
+    buttonOpenInNewTab2: {
+      type: "boolean",
+      default: false
+    },
+    buttonOpenInNewTab3: {
+      type: "boolean",
+      default: false
+    },
+    buttonNoFollow1: {
+      type: "boolean",
+      default: false
+    },
+    buttonNoFollow2: {
+      type: "boolean",
+      default: false
+    },
+    buttonNoFollow3: {
+      type: "boolean",
+      default: false
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -521,6 +680,16 @@ module.exports = window["wp"]["blockEditor"];
 /***/ ((module) => {
 
 module.exports = window["wp"]["components"];
+
+/***/ }),
+
+/***/ "@wordpress/primitives":
+/*!************************************!*\
+  !*** external ["wp","primitives"] ***!
+  \************************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["primitives"];
 
 /***/ })
 

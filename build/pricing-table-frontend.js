@@ -111,7 +111,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
-// frontend.js
 
 
 
@@ -121,8 +120,7 @@ const FrontendPricingTable = props => {
   } = props;
   const plans = ["plan1", "plan2", "plan3"];
   const prices = ["price1", "price2", "price3"];
-  const buttonLabels = ["buttonLabel1", "buttonLabel2", "buttonLabel3"]; // Assuming these labels are defined
-
+  const buttonLabels = ["buttonLabel1", "buttonLabel2", "buttonLabel3"];
   const properties = attributes.properties || {
     plan1: ["Feature 1"],
     plan2: ["Feature 1"],
@@ -172,8 +170,10 @@ const FrontendPricingTable = props => {
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
                 className: "d-grid",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
-                  href: "#",
+                  href: attributes[`buttonURL${index + 1}`] || "#",
                   className: "btn btn-primary text-uppercase",
+                  target: attributes[`buttonOpenInNewTab${index + 1}`] ? "_blank" : "_self",
+                  rel: attributes[`buttonNoFollow${index + 1}`] ? "nofollow" : "",
                   style: {
                     display: "flex",
                     alignItems: "center",
@@ -200,18 +200,12 @@ const FrontendPricingTable = props => {
     })
   });
 };
-const divsToUpdate = document.querySelectorAll(".product-pricing-table");
-divsToUpdate.forEach(function (div) {
-  // Parse attributes from JSON stored in the div's data-attributes attribute
+document.querySelectorAll('.product-pricing-table').forEach(div => {
   const attributes = JSON.parse(div.getAttribute('data-attributes'));
-
-  // Render the React component with the attributes
   react_dom__WEBPACK_IMPORTED_MODULE_1___default().render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(FrontendPricingTable, {
     attributes: attributes
   }), div);
-
-  // Remove the class to avoid re-rendering
-  div.classList.remove("product-pricing-table");
+  div.classList.remove('product-pricing-table');
 });
 /******/ })()
 ;

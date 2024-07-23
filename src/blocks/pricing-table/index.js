@@ -31,7 +31,16 @@ wp.blocks.registerBlockType("product-pricing/pricing-table", {
     },
     buttonLabel1: { type: "string", default: "Button 1" },
     buttonLabel2: { type: "string", default: "Button 2" },
-    buttonLabel3: { type: "string", default: "Button 3" }
+    buttonLabel3: { type: "string", default: "Button 3" },
+    buttonURL1: { type: "string", default: "" },
+    buttonURL2: { type: "string", default: "" },
+    buttonURL3: { type: "string", default: "" },
+    buttonOpenInNewTab1: { type: "boolean", default: false },
+    buttonOpenInNewTab2: { type: "boolean", default: false },
+    buttonOpenInNewTab3: { type: "boolean", default: false },
+    buttonNoFollow1: { type: "boolean", default: false },
+    buttonNoFollow2: { type: "boolean", default: false },
+    buttonNoFollow3: { type: "boolean", default: false }
   },
   edit,
   save: function (props) {

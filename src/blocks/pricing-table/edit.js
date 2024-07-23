@@ -3,9 +3,12 @@ import {
   FlexItem,
   TextControl,
   Button,
-  Icon
+  Icon,
+  ToggleControl
 } from "@wordpress/components";
 import { useRef, useEffect, useState } from "react";
+import { URLPopover } from "@wordpress/block-editor";
+import { keyboardReturn } from "@wordpress/icons";
 
 const Edit = (props) => {
   const { attributes, setAttributes } = props;
@@ -14,6 +17,39 @@ const Edit = (props) => {
   const [inputWidths, setInputWidths] = useState({ price1: 35, price2: 35, price3: 35 });
   const inputRefs = useRef({});
   const spanRefs = useRef({});
+  const popoverRefs = useRef({});
+  const buttonRefs = useRef({});
+  const [isPopoverVisible, setPopoverVisible] = useState({});
+  const [buttonURLs, setButtonURLs] = useState({});
+
+  useEffect(() => {
+    // Initialize button URLs from attributes
+    const initialButtonURLs = {};
+    plans.forEach((_, index) => {
+      initialButtonURLs[index] = attributes[`buttonURL${index + 1}`] || "";
+    });
+    setButtonURLs(initialButtonURLs);
+  }, [attributes]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const isClickInsidePopover = Object.values(popoverRefs.current).some(
+        (ref) => ref && ref.contains(event.target)
+      );
+      const isClickInsideButton = Object.values(buttonRefs.current).some(
+        (ref) => ref && ref.contains(event.target)
+      );
+
+      if (!isClickInsidePopover && !isClickInsideButton) {
+        setPopoverVisible({});
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     plans.forEach((plan, index) => {
@@ -57,6 +93,22 @@ const Edit = (props) => {
     const newPropertyStates = { ...attributes.propertyStates };
     newPropertyStates[plan][index] = !newPropertyStates[plan][index];
     setAttributes({ propertyStates: newPropertyStates });
+  };
+
+  const handleButtonMouseOver = (index) => {
+    setPopoverVisible((prev) => ({
+      ...prev,
+      [index]: true
+    }));
+  };
+
+  const handleURLChange = (index, value) => {
+    setButtonURLs((prev) => ({ ...prev, [index]: value }));
+  };
+
+  const handleURLSubmit = (index) => {
+    setAttributes({ [`buttonURL${index + 1}`]: buttonURLs[index] });
+    setPopoverVisible((prev) => ({ ...prev, [index]: false }));
   };
 
   return (
@@ -163,6 +215,7 @@ const Edit = (props) => {
                   <div className="d-grid">
                     <Button
                       className="btn-primary-custom"
+                      data-index={index}
                       style={{
                         display: "flex",
                         alignItems: "center",
@@ -181,6 +234,8 @@ const Edit = (props) => {
                         position: "relative",
                         height: "3rem"
                       }}
+                      onMouseOver={() => handleButtonMouseOver(index)}
+                      ref={(el) => (buttonRefs.current[index] = el)}
                     >
                       <TextControl
                         value={attributes[`buttonLabel${index + 1}`]}
@@ -201,6 +256,41 @@ const Edit = (props) => {
                           verticalAlign: "middle"
                         }}
                       />
+                      {isPopoverVisible[index] && (
+                        <URLPopover
+                          ref={(el) => (popoverRefs.current[index] = el)}
+                          onClose={() => setPopoverVisible((prev) => ({ ...prev, [index]: false }))}
+                          renderSettings={() => (
+                            <>
+                              <ToggleControl
+                                label="Open in new tab"
+                                checked={attributes[`buttonOpenInNewTab${index + 1}`] || false}
+                                onChange={(value) => setAttributes({ [`buttonOpenInNewTab${index + 1}`]: value })}
+                              />
+                              <ToggleControl
+                                label="Add rel='nofollow'"
+                                checked={attributes[`buttonNoFollow${index + 1}`] || false}
+                                onChange={(value) => setAttributes({ [`buttonNoFollow${index + 1}`]: value })}
+                              />
+                            </>
+                          )}
+                        >
+                          <TextControl
+                            label="URL"
+                            placeholder="link inside"
+                            style={{ width: '100%', minWidth: '200px' }}
+                            value={buttonURLs[index] || ""}
+                            onChange={(value) => handleURLChange(index, value)}
+                          />
+                          <Button
+                            icon={keyboardReturn}
+                            label="Save URL"
+                            isPrimary
+                            onClick={() => handleURLSubmit(index)}
+                            style={{ marginTop: '20px' }}
+                          />
+                        </URLPopover>
+                      )}
                     </Button>
                   </div>
                 </div>

@@ -1,4 +1,3 @@
-// frontend.js
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -7,7 +6,7 @@ const FrontendPricingTable = (props) => {
 
     const plans = ["plan1", "plan2", "plan3"];
     const prices = ["price1", "price2", "price3"];
-    const buttonLabels = ["buttonLabel1", "buttonLabel2", "buttonLabel3"]; // Assuming these labels are defined
+    const buttonLabels = ["buttonLabel1", "buttonLabel2", "buttonLabel3"];
 
     const properties = attributes.properties || {
         plan1: ["Feature 1"],
@@ -53,8 +52,10 @@ const FrontendPricingTable = (props) => {
                                     </ul>
                                     <div className="d-grid">
                                         <a
-                                            href="#"
+                                            href={attributes[`buttonURL${index + 1}`] || "#"}
                                             className="btn btn-primary text-uppercase"
+                                            target={attributes[`buttonOpenInNewTab${index + 1}`] ? "_blank" : "_self"}
+                                            rel={attributes[`buttonNoFollow${index + 1}`] ? "nofollow" : ""}
                                             style={{
                                                 display: "flex",
                                                 alignItems: "center",
@@ -85,14 +86,13 @@ const FrontendPricingTable = (props) => {
     );
 };
 
-const divsToUpdate = document.querySelectorAll(".product-pricing-table");
-divsToUpdate.forEach(function (div) {
-    // Parse attributes from JSON stored in the div's data-attributes attribute
+document.querySelectorAll('.product-pricing-table').forEach(div => {
     const attributes = JSON.parse(div.getAttribute('data-attributes'));
 
-    // Render the React component with the attributes
-    ReactDOM.render(<FrontendPricingTable attributes={attributes} />, div);
+    ReactDOM.render(
+        <FrontendPricingTable attributes={attributes} />,
+        div
+    );
 
-    // Remove the class to avoid re-rendering
-    div.classList.remove("product-pricing-table");
+    div.classList.remove('product-pricing-table');
 });
