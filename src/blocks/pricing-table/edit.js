@@ -4,11 +4,15 @@ import {
   TextControl,
   Button,
   Icon,
-  ToggleControl
+  ToggleControl,
+  PanelBody,
+  PanelRow,
+  ColorPicker
 } from "@wordpress/components";
 import { useRef, useEffect, useState } from "react";
-import { URLPopover } from "@wordpress/block-editor";
+import { URLPopover, InspectorControls, BlockControls, AlignmentToolbar } from "@wordpress/block-editor";
 import { keyboardReturn } from "@wordpress/icons";
+import { ChromePicker } from "react-color"
 
 const Edit = (props) => {
   const { attributes, setAttributes } = props;
@@ -112,7 +116,17 @@ const Edit = (props) => {
   };
 
   return (
-    <section className="pricing">
+    <section className="pricing" style={{ backgroundColor: attributes.bgColor }}>
+      <BlockControls>
+        <AlignmentToolbar value={attributes.planAlignment1} onChange={x => setAttributes({ planAlignment1: x })} />
+      </BlockControls>
+      <InspectorControls>
+        <PanelBody title="Background color" initialOpen={true}>
+          <PanelRow>
+            <ChromePicker color={attributes.bgColor} onChangeComplete={x => setAttributes({ bgColor: x.hex })} disableAlpha={true} />
+          </PanelRow>
+        </PanelBody>
+      </InspectorControls>
       <div className="container">
         <Flex className="row">
           {plans.map((plan, index) => (

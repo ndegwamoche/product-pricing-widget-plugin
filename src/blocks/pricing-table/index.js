@@ -7,6 +7,8 @@ wp.blocks.registerBlockType("product-pricing/pricing-table", {
   icon: "table-col-after",
   category: "widgets",
   attributes: {
+    bgColor: { type: "string", default: "#ebebeb" },
+    planAlignment1: { type: "string", default: "center" },
     plan1: { type: "string", default: "DEFAULT PLAN 1" },
     plan2: { type: "string", default: "DEFAULT PLAN 2" },
     plan3: { type: "string", default: "DEFAULT PLAN 3" },
@@ -41,6 +43,14 @@ wp.blocks.registerBlockType("product-pricing/pricing-table", {
     buttonNoFollow1: { type: "boolean", default: false },
     buttonNoFollow2: { type: "boolean", default: false },
     buttonNoFollow3: { type: "boolean", default: false }
+  },
+  description: "Gutenberg blocks for pricing tables and single products.",
+  example: {
+    attributes: {
+      plan1: "DEFAULT PLAN 1",
+      plan2: "DEFAULT PLAN 2",
+      plan3: "DEFAULT PLAN 3"
+    }
   },
   edit,
   save: function (props) {

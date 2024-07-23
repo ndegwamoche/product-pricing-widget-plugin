@@ -21,7 +21,7 @@ const FrontendPricingTable = (props) => {
     };
 
     return (
-        <section className="pricing">
+        <section className="pricing" style={{ backgroundColor: attributes.bgColor, textAlign: attributes.planAlignment1 }}>
             <div className="container">
                 <div className="row">
                     {plans.map((plan, index) => (
